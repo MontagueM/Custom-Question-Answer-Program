@@ -15,6 +15,7 @@ images_to_show_me = []
 images_to_show = []
 incorrect_array = []
 size = [1000, 1000]
+size_ans = [500, 500]
 
 root = Tk()
 root.geometry("1920x1080")
@@ -75,7 +76,7 @@ def show_hide_answer(*args):
             panel.configure(text=ans[image_number])
         else:
             img = Image.open(ans[image_number])
-            img.thumbnail(size, Image.ANTIALIAS)
+            img.thumbnail(size_ans, Image.ANTIALIAS)
             img = ImageTk.PhotoImage(img)
             panel.configure(image=img)
     else:
@@ -100,6 +101,16 @@ def got_wrong(*args):
     wrong_qs.configure(text=final_str)
 
 
+def open_image(*args):
+    global showing_question
+    if showing_question:
+        img1 = Image.open(images_to_show[image_number])
+        img1.show()
+    else:
+        img1 = Image.open(ans[image_number])
+        img1.show()
+
+
 prev_button = ttk.Button(mainframe, text="< Previous", command=prev_image)
 prev_button.pack(side="left")
 next_button = ttk.Button(mainframe, text="Next >", command=next_image)
@@ -108,6 +119,8 @@ answer_button = ttk.Button(mainframe, text="Show/Hide answer", command=show_hide
 answer_button.pack(side="bottom")
 wrong_button = ttk.Button(mainframe, text="Got it wrong", command=got_wrong)
 wrong_button.pack(side="bottom")
+show_image_if_small_button = ttk.Button(mainframe, text="Click to open image if too small", command=open_image)
+show_image_if_small_button.pack(side="bottom")
 
 
 def main(subject, questions_desired, skip):
@@ -161,12 +174,15 @@ def main(subject, questions_desired, skip):
 
     elif questions_desired.get("maths"):
         for topic in topic_to_look.split(", "):  # For every subject listed (eg maths or maths and futher maths)
+            print(topic)
             for file in glob.glob(subject + "/" + sub_to_look + "/" + topic + "/*.png"):  # Produce list of all pngs
                 string = file.split(".")[0].split("\\")[1]  # Getting file name without .png
-                if string.isdigit():  # if string only has a digit and no _ans
+                if "ans" not in string:  # if string only has a digit and no _ans
+                    print(string)
                     images_to_show.append(file)  # append to show images
                 else:  # if an _ans:
                     ans_type.append("image")  # add the image to answers
+                    print(string)
                     ans.append(subject + "/" + sub_to_look + "/" + topic + "/" + string + ".png")
 
     # print(ans)
