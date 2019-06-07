@@ -17,7 +17,7 @@ incorrect_array = []
 size = [1000, 1000]
 
 root = Tk()
-root.geometry("2560x1440")
+root.geometry("1920x1080")
 topframe = ttk.Frame(root)
 topframe.pack(side="top")
 mainframe = ttk.Frame(root)
