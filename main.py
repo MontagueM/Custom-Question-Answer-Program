@@ -4,7 +4,7 @@ questions_desired = {"multiple": False, "medium": False, "long": False, "maths":
 subject_list = {"m": "maths", "f": "furthermaths", "e": "economics", "p": "physics"}
 question_list = {"mu": "multiple", "me": "medium", "lo": "long", "ma": "maths"}
 # subject_text = input("Subject maths (m), further maths (f), ecomomics (e), physics (p), debug (d)? ").lower()
-subject_text = input("Press enter to start all of FP1 hard content")
+subject_text = input("Press enter to start all of FM1 hard content")
 if subject_text == "":
     subject = "maths"
     questions_desired["maths"] = True

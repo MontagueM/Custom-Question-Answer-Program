@@ -62,6 +62,7 @@ def next_image(*args):
         panel.configure(image=img)
         showing_question = True
         q_num.configure(text="Q" + str(image_number+1))
+        print(image_number)
 
 
 def show_hide_answer(*args):
@@ -131,8 +132,8 @@ def main(subject, questions_desired, skip):
     global incorrect_array
     # print(questions_desired)
     if skip:
-        sub_to_look = "fp1"
-        topic_to_look = "calculus_methods, conic, inequalities, numerical_methods, reducible_de, t-formulae, taylor, vectors"
+        sub_to_look = "fm1"
+        topic_to_look = "1d, 2d, elastic_springs, momentum, work"
         number_of_q = 999
     else:
         sub_to_look = input("\nWhich sub-subject? Type l for list: ").lower()
@@ -180,10 +181,11 @@ def main(subject, questions_desired, skip):
                 if "ans" not in string:  # if string only has a digit and no _ans
                     print(string)
                     images_to_show.append(file)  # append to show images
-                else:  # if an _ans:
+
                     ans_type.append("image")  # add the image to answers
-                    print(string)
-                    ans.append(subject + "/" + sub_to_look + "/" + topic + "/" + string + ".png")
+                    print(string + "_ans")
+                    ans.append(subject + "/" + sub_to_look + "/" + topic + "/" + string + "_ans.png")
+
 
     # print(ans)
     if questions_desired.get("maths") is False:
@@ -194,7 +196,7 @@ def main(subject, questions_desired, skip):
     # print(ans)
     # print(ans_type)
     c = list(zip(images_to_show, ans, ans_type))
-    # random.shuffle(c)
+    random.shuffle(c)
     images_to_show, ans, ans_type = zip(*c)
     images_to_show, ans, ans_type = images_to_show[:number_of_q], ans[:number_of_q], ans_type[:number_of_q]
     img = Image.open(images_to_show[image_number])
@@ -208,6 +210,7 @@ def main(subject, questions_desired, skip):
     root.bind('<Right>', next_image)
     root.bind('<Up>', show_hide_answer)
     root.bind('<Down>', show_hide_answer)
+    root.bind('<space>', show_hide_answer)
     root.mainloop()
 
 
